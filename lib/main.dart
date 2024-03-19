@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -64,10 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
     if (assetsAudioPlayer.stopped) {
-      assetsAudioPlayer.open(
-        Audio("assets/audios/samhoisaucan1a.mp3")
-      );
-    } else  {
+      assetsAudioPlayer.open(Audio("assets/audios/samhoisaucan1a.mp3"));
+    } else {
       assetsAudioPlayer.playOrPause();
     }
   }
@@ -108,14 +109,79 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(color: Colors.yellow),
+                  child: const Text(
+                    "text 1",
+                    style: TextStyle(fontSize: 32),
+                  ),
+                ),
+                Container(
+                  decoration: cosnt BoxDecoration(color: Colors.green),
+                  child: const Text(
+                    "text 2",
+                    style: TextStyle(fontSize: 32),
+                  ),
+                ),
+              ],
             ),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              'NGHI THỨC SÁM HỐI VÀ TỤNG GIỚI',
+              style: Theme.of(context).textTheme.headlineSmall,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'HT. THIỀN SƯ THÍCH THANH TỪ',
+              style: Theme.of(context).textTheme.labelLarge,
+              textAlign: TextAlign.center,
+            ),
+            const Text(''),
+            Text(
+              'KỆ NGUYỆN HƯƠNG',
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              '(Quỳ nguyện hương)',
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
+            ),
+            const Text(''),
+            Text(
+              'Trầm thuỷ, rừng thiền hương sực nức,',
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Chiên đàn vườn tuệ đã vun trồng.',
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Ðao giới vót thành hình non thẳm,',
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Nguyện đốt lò tâm mãi cúng dâng.',
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Nam Mô Bồ Tát Hương cúng dường.',
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              '(3 lần rồi đứng lên)',
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.end,
             ),
           ],
         ),
@@ -123,7 +189,9 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _togglePlay,
         tooltip: _counter % 2 == 0 ? 'Play' : 'Pause',
-        child: _counter % 2 == 0 ? const Icon(Icons.play_arrow) : const Icon(Icons.stop),
+        child: _counter % 2 == 0
+            ? const Icon(Icons.play_arrow)
+            : const Icon(Icons.stop),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
