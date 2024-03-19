@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Container(
-                  decoration: cosnt BoxDecoration(color: Colors.green),
+                  decoration: const BoxDecoration(color: Colors.green),
                   child: const Text(
                     "text 2",
                     style: TextStyle(fontSize: 32),
