@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,21 +15,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo.shade600),
         useMaterial3: true,
       ),
@@ -42,16 +25,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -59,140 +32,204 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   final assetsAudioPlayer = AssetsAudioPlayer();
 
-  void _togglePlay() {
+  @override
+  void initState() {
+    super.initState();
+    assetsAudioPlayer.open(
+      Audio("assets/audios/samhoisaucan1a.mp3"),
+      autoStart: false,
+    );
+  }
+
+  void _playOrPause() {
     setState(() {
-      _counter++;
-    });
-    if (assetsAudioPlayer.stopped) {
-      assetsAudioPlayer.open(Audio("assets/audios/samhoisaucan1a.mp3"));
-    } else {
       assetsAudioPlayer.playOrPause();
-    }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-
+    final bool playing = assetsAudioPlayer.isPlaying.value;
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(color: Colors.yellow),
-                  child: const Text(
-                    "text 1",
-                    style: TextStyle(fontSize: 32),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(color: Colors.green),
-                  child: const Text(
-                    "text 2",
-                    style: TextStyle(fontSize: 32),
-                  ),
-                ),
-              ],
-            ),
-            Text(
-              'NGHI THỨC SÁM HỐI VÀ TỤNG GIỚI',
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              'HT. THIỀN SƯ THÍCH THANH TỪ',
-              style: Theme.of(context).textTheme.labelLarge,
-              textAlign: TextAlign.center,
-            ),
-            const Text(''),
-            Text(
-              'KỆ NGUYỆN HƯƠNG',
-              style: Theme.of(context).textTheme.titleLarge,
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              '(Quỳ nguyện hương)',
-              style: Theme.of(context).textTheme.bodySmall,
-              textAlign: TextAlign.center,
-            ),
-            const Text(''),
-            Text(
-              'Trầm thuỷ, rừng thiền hương sực nức,',
-              style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              'Chiên đàn vườn tuệ đã vun trồng.',
-              style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              'Ðao giới vót thành hình non thẳm,',
-              style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              'Nguyện đốt lò tâm mãi cúng dâng.',
-              style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              'Nam Mô Bồ Tát Hương cúng dường.',
-              style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              '(3 lần rồi đứng lên)',
-              style: Theme.of(context).textTheme.bodySmall,
-              textAlign: TextAlign.end,
-            ),
-          ],
-        ),
-      ),
+      body: Scrollbar(
+          child: ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return StickyHeader(
+                    header: Container(),
+                    content: Container(
+                      alignment: Alignment.topCenter,
+                      padding: const EdgeInsets.all(15),
+                      // margin: MediaQuery.of(context).padding,
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            'NGHI THỨC SÁM HỐI VÀ TỤNG GIỚI',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          Text(
+                            'HT. THIỀN SƯ THÍCH THANH TỪ',
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                          const Text(''),
+                          const Text(''),
+                          const Text(''),
+                          Text(
+                            'KỆ NGUYỆN HƯƠNG',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Text(
+                            '(Quỳ nguyện hương)',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const Text(''),
+                          Text(
+                            'Trầm thuỷ, rừng thiền hương sực nức,',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Chiên đàn vườn tuệ đã vun trồng.',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Ðao giới vót thành hình non thẳm,',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Nguyện đốt lò tâm mãi cúng dâng.',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Nam Mô Bồ Tát Hương cúng dường.',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            '(3 lần rồi đứng lên)',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const Text(''),
+                          const Text(''),
+                          const Text(''),
+                          Text(
+                            'TÁN PHẬT',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Text(
+                            'Ðại từ, đại bi thương chúng sanh,',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Ðại hỷ, đại xả cứu hàm thức.',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Tướng đẹp sáng ngời dùng trang nghiêm,',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Chúng con chí tâm thành đảnh lễ:',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            '- Chí tâm đảnh lễ: Tất cả chư Phật ba đời, tột hư không khắp pháp giới. (1 lạy)',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          Text(
+                            '- Chí tâm đảnh lễ: Tất cả chánh pháp ba đời, tột hư không khắp pháp giới. (1 lạy)',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          Text(
+                            '- Chí tâm đảnh lễ: Tất cả Tăng, bậc Hiền thánh ba đời, tột hư không khắp pháp giới. (1 lạy)',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          const Text(''),
+                          const Text(''),
+                          const Text(''),
+                          Text(
+                            'TÁN PHÁP',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Text(
+                            'Pháp Phật sâu mầu chẳng gì hơn,',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Trăm ngàn muôn kiếp khó được gặp.',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Nay con nghe thấy vâng gìn giữ,',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Nguyện hiểu nghĩa chơn đức Thế Tôn.',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Qui kính Phật, Bồ Tát trên hội Bát Nhã.',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            '(3 lần)',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const Text(''),
+                          const Text(''),
+                          const Text(''),
+                          Text(
+                            'TÂM KINH TRÍ TUỆ CỨU CÁNH RỘNG LỚN',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Text(
+                            'Khi Bồ tát Quán Tự Tại hành sâu Bát Nhã Ba la mật đa, ngài soi thấy năm uẩn đều không, liền qua hết thảy khổ ách. (1 chuông)',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Này Xá Lợi Phất! Sắc chẳng khác không, không chẳng khác sắc. Sắc tức là không, không tức là sắc, thọ, tưởng, hành, thức cũng lại như thế. (1chuông)',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Này Xá Lợi Phất! Tướng không của các pháp không sanh, không diệt, không dơ, không sạch, không thêm, không bớt. Cho nên trong tướng không, không có sắc, không có thọ, tưởng, hành, thức; không có mắt, tai, mũi, lưỡi, thân, ý; không có sắc, thinh, hương, vị, xúc, pháp; không có nhãn giới cho đến không có ý thức giới; không có vô minh cũng không có hết vô minh cho đến không có già chết cũng không có hết già chết; không có khổ, tập, diệt, đạo; không có trí huệ, cũng không có chứng đắc. (1 chuông)',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Vì không có chỗ được, nên Bồ tát y theo Bát Nhã Ba la mật đa, tâm không ngăn ngại. Vì không ngăn ngại nên không sợ hãi, xa lìa hẳn điên đảo mộng tưởng, đạt đến cứu cánh Niết bàn. Chư Phật trong ba đời cũng nương Bát Nhã Ba la mật đa, được đạo quả Vô thượng Chánh đẳng chánh giác. Nên biết Bát Nhã Ba la mật đa là đại thần chú, là đại minh chú, là vô thượng chú, là vô đẳng đẳng chú, hay trừ được hết thảy khổ, chơn thật không dối.',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            'Vì vậy, nói chú Bát Nhã Ba la mật đa, liền nói chú rằng:',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            '"Yết đế, yết đế, Ba la yết đế, ba la tăng yết đế, Bồ đề tát bà ha". (3 lần)',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const Text(''),
+                          const Text(''),
+                          const Text(''),
+                          Text(
+                            'BÀI SÁM HỐI SÁU CĂN',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Text(
+                            '(Quỳ tụng)',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          Text(
+                            '- Chí tâm sám hối:',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
+                    ));
+              })),
       floatingActionButton: FloatingActionButton(
-        onPressed: _togglePlay,
-        tooltip: _counter % 2 == 0 ? 'Play' : 'Pause',
-        child: _counter % 2 == 0
-            ? const Icon(Icons.play_arrow)
-            : const Icon(Icons.stop),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        onPressed: _playOrPause,
+        tooltip: !playing ? 'Play' : 'Pause',
+        child: !playing ? const Icon(Icons.play_arrow) : const Icon(Icons.stop),
+      ),
     );
   }
 }
