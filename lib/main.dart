@@ -87,15 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _assetsAudioPlayer.builderIsPlaying(builder: (context, isPlaying) {
-              if (isPlaying) {
-                return FloatingActionButton(
-                    onPressed: () => _assetsAudioPlayer.stop(),
-                    tooltip: 'Stop',
-                    child: const Icon(Icons.stop)
-                );
+            _assetsAudioPlayer.builderRealtimePlayingInfos(builder: (context, RealtimePlayingInfos? infos) {
+              if (infos == null || infos.duration.inSeconds <= 0) {
+                return const SizedBox();
               }
-              return const SizedBox(height: 0);
+              return FloatingActionButton(
+                  onPressed: () => _assetsAudioPlayer.stop(),
+                  tooltip: 'Stop',
+                  child: const Icon(Icons.stop)
+              );
             }),
             const SizedBox(height: 16),
             _assetsAudioPlayer.builderIsPlaying(builder: (context, isPlaying) {
