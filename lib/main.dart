@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Sám Hối Sáu Căn',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo.shade600),
         useMaterial3: true,
@@ -32,7 +32,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  ScrollController scrollBookController = ScrollController();
   Future<String> loadAsset() async {
     return await rootBundle.loadString('assets/mds/samhoisaucan.md');
   }
@@ -49,13 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
     openPlayer();
-
-    Future.delayed(const Duration(seconds: 1), () {
-      scrollBookController.animateTo(
-          scrollBookController.position.maxScrollExtent,
-          duration: const Duration(seconds: 2),
-          curve: Curves.linear);
-    });
   }
 
   void openPlayer() async {
@@ -72,10 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _playOrPause() {
-    _assetsAudioPlayer.playOrPause();
-  }
-
   @override
   void dispose() {
     super.dispose();
@@ -87,7 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         body: SafeArea(
             child: Markdown(
-          controller: scrollBookController,
           data: markdownData,
           selectable: false,
           styleSheet: MarkdownStyleSheet(
@@ -97,15 +84,30 @@ class _MyHomePageState extends State<MyHomePage> {
               h3: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               h4: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
         )),
-        floatingActionButton:
+        floatingActionButton: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
             _assetsAudioPlayer.builderIsPlaying(builder: (context, isPlaying) {
-          return FloatingActionButton(
-            onPressed: _playOrPause,
-            tooltip: !isPlaying ? 'Play' : 'Pause',
-            child: !isPlaying
-                ? const Icon(Icons.play_arrow)
-                : const Icon(Icons.stop),
-          );
-        }));
+              if (isPlaying) {
+                return FloatingActionButton(
+                    onPressed: () => _assetsAudioPlayer.stop(),
+                    tooltip: 'Stop',
+                    child: const Icon(Icons.stop)
+                );
+              }
+              return const SizedBox(height: 0);
+            }),
+            const SizedBox(height: 16),
+            _assetsAudioPlayer.builderIsPlaying(builder: (context, isPlaying) {
+              return FloatingActionButton(
+                onPressed: () => _assetsAudioPlayer.playOrPause(),
+                tooltip: !isPlaying ? 'Play' : 'Pause',
+                child: !isPlaying
+                    ? const Icon(Icons.play_arrow)
+                    : const Icon(Icons.pause),
+              );
+            }),
+          ],
+        ));
   }
 }
