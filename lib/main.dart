@@ -109,40 +109,49 @@ class _MyHomePageState extends State<MyHomePage> {
             isShowButtons
                 ? Column(
                     children: [
-                      const SizedBox(height: 16),
-                      FloatingActionButton(
-                        onPressed: () => setState(() {
-                          fontSizeBase += 1.0;
-                          if (fontSizeBase > 24) {
-                            fontSizeBase = 24.0;
-                          }
-                        }),
-                        tooltip: 'Increase',
-                        child: const Text('A+',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ),
-                      const SizedBox(height: 16),
-                      FloatingActionButton(
-                        onPressed: () => setState(() {
-                          fontSizeBase -= 1.0;
-                          if (fontSizeBase < 14) {
-                            fontSizeBase = 14.0;
-                          }
-                        }),
-                        tooltip: 'Decrease',
-                        child: const Text('A-',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ),
-                      const SizedBox(height: 16),
+                      fontSizeBase < 30
+                          ? Column(children: [
+                              const SizedBox(height: 16),
+                              FloatingActionButton(
+                                onPressed: () => setState(() {
+                                  fontSizeBase += 1.0;
+                                }),
+                                tooltip: 'Increase',
+                                child: const Text('A+',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              )
+                            ])
+                          : const SizedBox(),
+                      fontSizeBase > 16
+                          ? Column(children: [
+                              const SizedBox(height: 16),
+                              FloatingActionButton(
+                                onPressed: () => setState(() {
+                                  fontSizeBase -= 1.0;
+                                }),
+                                tooltip: 'Decrease',
+                                child: const Text('A-',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              )
+                            ])
+                          : const SizedBox(),
                       _assetsAudioPlayer.builderRealtimePlayingInfos(
                           builder: (context, RealtimePlayingInfos? infos) {
-                        if (infos == null || infos.duration.inSeconds <= 0) {
-                          return const SizedBox();
+                        if (infos != null &&
+                            infos.currentPosition > Duration.zero) {
+                          return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const SizedBox(height: 16),
+                                FloatingActionButton(
+                                    onPressed: () => _assetsAudioPlayer.stop(),
+                                    tooltip: 'Stop',
+                                    child: const Icon(Icons.stop))
+                              ]);
                         }
-                        return FloatingActionButton(
-                            onPressed: () => _assetsAudioPlayer.stop(),
-                            tooltip: 'Stop',
-                            child: const Icon(Icons.stop));
+                        return const SizedBox();
                       }),
                     ],
                   )
