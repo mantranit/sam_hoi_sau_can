@@ -43,10 +43,15 @@ Qui kính Phật, Bồ Tát trên hội Bát Nhã.
 
 ## TÂM KINH TRÍ TUỆ CỨU CÁNH RỘNG LỚN
 Khi Bồ tát Quán Tự Tại hành sâu Bát Nhã Ba la mật đa, ngài soi thấy năm uẩn đều không, liền qua hết thảy khổ ách. `(1 chuông)`  
+
 Này Xá Lợi Phất! Sắc chẳng khác không, không chẳng khác sắc. Sắc tức là không, không tức là sắc, thọ, tưởng, hành, thức cũng lại như thế. `(1chuông)`  
+
 Này Xá Lợi Phất! Tướng không của các pháp không sanh, không diệt, không dơ, không sạch, không thêm, không bớt. Cho nên trong tướng không, không có sắc, không có thọ, tưởng, hành, thức; không có mắt, tai, mũi, lưỡi, thân, ý; không có sắc, thinh, hương, vị, xúc, pháp; không có nhãn giới cho đến không có ý thức giới; không có vô minh cũng không có hết vô minh cho đến không có già chết cũng không có hết già chết; không có khổ, tập, diệt, đạo; không có trí huệ, cũng không có chứng đắc. `(1 chuông)`  
+
 Vì không có chỗ được, nên Bồ tát y theo Bát Nhã Ba la mật đa, tâm không ngăn ngại. Vì không ngăn ngại nên không sợ hãi, xa hẳn điên đảo mộng tưởng, đạt đến cứu cánh Niết bàn. Chư Phật trong ba đời cũng nương Bát Nhã Ba la mật đa, được đạo quả Vô thượng Chánh đẳng chánh giác. Nên biết Bát Nhã Ba la mật đa là đại thần chú, là đại minh chú, là vô thượng chú, là vô đẳng đẳng chú, hay trừ được hết thảy khổ, chơn thật không dối.  
+
 Vì vậy, nói chú Bát Nhã Ba la mật đa, liền nói chú rằng:  
+
 "Yết đế, yết đế, Ba la yết đế, ba la tăng yết đế, Bồ đề tát bà ha". `(3 lần)`
 
 &nbsp;

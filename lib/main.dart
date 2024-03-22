@@ -38,6 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late AssetsAudioPlayer _assetsAudioPlayer;
   var markdownData = '';
+  var fontSizeBase = 20.0;
+  var isShowButtons = false;
 
   final audio = Audio("assets/audios/samhoisaucan1a.mp3");
 
@@ -78,25 +80,73 @@ class _MyHomePageState extends State<MyHomePage> {
           data: markdownData,
           selectable: false,
           styleSheet: MarkdownStyleSheet(
-              p: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-              h1: const TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
-              h2: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-              h3: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-              h4: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+              p: TextStyle(
+                  fontSize: fontSizeBase,
+                  fontWeight: FontWeight.bold,
+                  height: 1.5),
+              h1: TextStyle(
+                  fontSize: fontSizeBase * 1.725, fontWeight: FontWeight.bold),
+              h2: TextStyle(
+                  fontSize: fontSizeBase * 1.5, fontWeight: FontWeight.bold),
+              h3: TextStyle(
+                  fontSize: fontSizeBase * 1.25, fontWeight: FontWeight.bold),
+              h4: TextStyle(
+                  fontSize: fontSizeBase * 1.125, fontWeight: FontWeight.bold)),
         )),
         floatingActionButton: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _assetsAudioPlayer.builderRealtimePlayingInfos(builder: (context, RealtimePlayingInfos? infos) {
-              if (infos == null || infos.duration.inSeconds <= 0) {
-                return const SizedBox();
-              }
-              return FloatingActionButton(
-                  onPressed: () => _assetsAudioPlayer.stop(),
-                  tooltip: 'Stop',
-                  child: const Icon(Icons.stop)
-              );
-            }),
+            FloatingActionButton(
+              mini: true,
+              onPressed: () => setState(() {
+                isShowButtons = !isShowButtons;
+              }),
+              tooltip: isShowButtons ? 'Collapse' : 'Expand',
+              child: isShowButtons
+                  ? const Icon(Icons.expand_more)
+                  : const Icon(Icons.expand_less),
+            ),
+            isShowButtons
+                ? Column(
+                    children: [
+                      const SizedBox(height: 16),
+                      FloatingActionButton(
+                        onPressed: () => setState(() {
+                          fontSizeBase += 1.0;
+                          if (fontSizeBase > 26) {
+                            fontSizeBase = 26.0;
+                          }
+                        }),
+                        tooltip: 'Increase',
+                        child: const Text('A+',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      const SizedBox(height: 16),
+                      FloatingActionButton(
+                        onPressed: () => setState(() {
+                          fontSizeBase -= 1.0;
+                          if (fontSizeBase < 16) {
+                            fontSizeBase = 16.0;
+                          }
+                        }),
+                        tooltip: 'Decrease',
+                        child: const Text('A-',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      const SizedBox(height: 16),
+                      _assetsAudioPlayer.builderRealtimePlayingInfos(
+                          builder: (context, RealtimePlayingInfos? infos) {
+                        if (infos == null || infos.duration.inSeconds <= 0) {
+                          return const SizedBox();
+                        }
+                        return FloatingActionButton(
+                            onPressed: () => _assetsAudioPlayer.stop(),
+                            tooltip: 'Stop',
+                            child: const Icon(Icons.stop));
+                      }),
+                    ],
+                  )
+                : const SizedBox(),
             const SizedBox(height: 16),
             _assetsAudioPlayer.builderIsPlaying(builder: (context, isPlaying) {
               return FloatingActionButton(
