@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late AssetsAudioPlayer _assetsAudioPlayer;
   var markdownData = '';
-  var fontSizeBase = 20.0;
+  var fontSizeBase = 18.0;
   var isShowButtons = false;
 
   final audio = Audio("assets/audios/samhoisaucan1a.mp3");
@@ -113,8 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       FloatingActionButton(
                         onPressed: () => setState(() {
                           fontSizeBase += 1.0;
-                          if (fontSizeBase > 26) {
-                            fontSizeBase = 26.0;
+                          if (fontSizeBase > 24) {
+                            fontSizeBase = 24.0;
                           }
                         }),
                         tooltip: 'Increase',
@@ -125,8 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       FloatingActionButton(
                         onPressed: () => setState(() {
                           fontSizeBase -= 1.0;
-                          if (fontSizeBase < 16) {
-                            fontSizeBase = 16.0;
+                          if (fontSizeBase < 14) {
+                            fontSizeBase = 14.0;
                           }
                         }),
                         tooltip: 'Decrease',
