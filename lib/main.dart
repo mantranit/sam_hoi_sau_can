@@ -2,6 +2,9 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:sam_hoi_sau_can/storages/font_size.dart';
+
+import 'constant.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,13 +22,15 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo.shade600),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(storage: FontSizeStorage()),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({super.key, required this.storage});
+
+  final FontSizeStorage storage;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -33,19 +38,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Future<String> loadAsset() async {
-    return await rootBundle.loadString('assets/mds/samhoisaucan.md');
+    return await rootBundle.loadString(pathMarkdownFile);
   }
+  final audio = Audio(pathAudioFile);
 
   late AssetsAudioPlayer _assetsAudioPlayer;
-  var markdownData = '';
-  var fontSizeBase = 18.0;
-  var isShowButtons = false;
-
-  final audio = Audio("assets/audios/samhoisaucan1a.mp3");
+  String markdownData = '';
+  double fontSizeBase = defaultFontSize;
+  bool isShowButtons = false;
 
   @override
   void initState() {
     super.initState();
+    widget.storage.readFromFile().then((value) {
+      setState(() {
+        fontSizeBase = value;
+      });
+    });
     loadBook();
 
     _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
@@ -63,6 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
     var book = await loadAsset();
     setState(() {
       markdownData = book;
+    });
+  }
+
+  void _changeFontSize(double step) {
+    setState(() {
+      fontSizeBase += step;
+      widget.storage.writeToFile(fontSizeBase);
     });
   }
 
@@ -113,9 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ? Column(children: [
                               const SizedBox(height: 16),
                               FloatingActionButton(
-                                onPressed: () => setState(() {
-                                  fontSizeBase += 1.0;
-                                }),
+                                onPressed: () => _changeFontSize(1.0),
                                 tooltip: 'Increase',
                                 child: const Text('A+',
                                     style:
@@ -127,9 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ? Column(children: [
                               const SizedBox(height: 16),
                               FloatingActionButton(
-                                onPressed: () => setState(() {
-                                  fontSizeBase -= 1.0;
-                                }),
+                                onPressed: () => _changeFontSize(-1.0),
                                 tooltip: 'Decrease',
                                 child: const Text('A-',
                                     style:
@@ -138,9 +150,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             ])
                           : const SizedBox(),
                       _assetsAudioPlayer.builderRealtimePlayingInfos(
-                          builder: (context, RealtimePlayingInfos? infos) {
-                        if (infos != null &&
-                            infos.currentPosition > Duration.zero) {
+                          builder: (context, RealtimePlayingInfos? playingInfo) {
+                        if (playingInfo != null &&
+                            playingInfo.currentPosition > Duration.zero) {
                           return Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
