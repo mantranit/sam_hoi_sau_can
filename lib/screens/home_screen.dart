@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late AssetsAudioPlayer _assetsAudioPlayer;
   String markdownData = '';
-  double fontSizeBase = defaultFontSize;
+  double fontSizeBase = 0;
   bool isShowButtons = false;
 
   @override
@@ -37,6 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
     openPlayer();
+  }
+
+  @override
+  void dispose() {
+    _assetsAudioPlayer.dispose();
+    super.dispose();
   }
 
   void openPlayer() async {
@@ -61,32 +67,33 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    _assetsAudioPlayer.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-            child: Markdown(
-          data: markdownData,
-          selectable: false,
-          styleSheet: MarkdownStyleSheet(
-              p: TextStyle(
-                  fontSize: fontSizeBase,
-                  fontWeight: FontWeight.bold,
-                  height: 1.5),
-              h1: TextStyle(
-                  fontSize: fontSizeBase * 1.725, fontWeight: FontWeight.bold),
-              h2: TextStyle(
-                  fontSize: fontSizeBase * 1.5, fontWeight: FontWeight.bold),
-              h3: TextStyle(
-                  fontSize: fontSizeBase * 1.25, fontWeight: FontWeight.bold),
-              h4: TextStyle(
-                  fontSize: fontSizeBase * 1.125, fontWeight: FontWeight.bold)),
-        )),
+            child: AnimatedOpacity(
+                duration: const Duration(seconds: 1),
+                opacity: fontSizeBase > 0 ? 1.0 : 0,
+                child: Markdown(
+                  data: markdownData,
+                  selectable: false,
+                  styleSheet: MarkdownStyleSheet(
+                      p: TextStyle(
+                          fontSize: fontSizeBase,
+                          fontWeight: FontWeight.bold,
+                          height: 1.5),
+                      h1: TextStyle(
+                          fontSize: fontSizeBase * 1.725,
+                          fontWeight: FontWeight.bold),
+                      h2: TextStyle(
+                          fontSize: fontSizeBase * 1.5,
+                          fontWeight: FontWeight.bold),
+                      h3: TextStyle(
+                          fontSize: fontSizeBase * 1.25,
+                          fontWeight: FontWeight.bold),
+                      h4: TextStyle(
+                          fontSize: fontSizeBase * 1.125,
+                          fontWeight: FontWeight.bold)),
+                ))),
         floatingActionButton: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

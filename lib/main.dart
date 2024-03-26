@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sam_hoi_sau_can/screens/home_screen.dart';
 import 'package:sam_hoi_sau_can/screens/splash_screen.dart';
-import 'package:sam_hoi_sau_can/storages/font_size.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo.shade600),
-        useMaterial3: true,
-      ),
-      home: HomeScreen(storage: FontSizeStorage()),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+          useMaterial3: true),
+      home: const SplashScreen(),
     );
   }
 }
