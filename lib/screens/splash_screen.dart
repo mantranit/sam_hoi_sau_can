@@ -32,8 +32,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
+    return SafeArea(
+        child: Container(
       width: double.infinity,
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -43,11 +43,6 @@ class _SplashScreenState extends State<SplashScreen>
       child:
           const Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Image(image: AssetImage('assets/images/launch_image.png'), width: 200),
-        SizedBox(height: 20),
-        Text('Sám Hối Sáu Căn',
-            style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
-        Text('Nghi thức sám hối và tụng giới',
-            style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold)),
       ]),
     ));
   }
